@@ -26,9 +26,12 @@ public class RockerRoleController : IRock
         RectTransform targetBg = rockerBtnTr.Find("RockerBackground").GetComponent<RectTransform>();
         _rockDirection = TransformHelper.GetChild(rockerBtnTr, "RockerDirection").GetComponent<RectTransform>();
 
+        // 设置开始拖拽区域为：从屏幕左下角到屏幕正中间之间的位置
+        // 只要是在左侧屏幕开始拖拽，都能产生拖拽效果
         Vector2 minPickPos = new Vector2(0, 0);
         Vector2 pickSize = new Vector2(Screen.width * 0.5f, Screen.height);
         Vector2 minActivePos = new Vector2(0, 0);
+        // 设置拖拽过程中手指在activeSize范围内都可以拖动
         Vector2 activeSize = new Vector2(Screen.width, Screen.height);
         _targetAreaRadius = (targetBg.rect.width * 0.5f) - (target.rect.width * 0.5f) - 2f;
         _rockDirecRange = (targetBg.rect.width * 0.5f) + 10f;
@@ -55,17 +58,17 @@ public class RockerRoleController : IRock
     public void Move(Vector2 pos, float percentage)
     {
         percentage = Mathf.Clamp(percentage, 0, _maxPercentage);
-        Vector3 dir = (Vector3)(pos.normalized * percentage) / _maxPercentage;// (Vector3)(pos - beginPosition).normalized;
-        if (dir != Vector3.zero)
+        if (pos.sqrMagnitude <= 0 || percentage <= 0)
         {
-            dir.Normalize();
-            _rockDirection.localPosition = dir * _rockDirecRange;
-
-            Quaternion quart = Quaternion.LookRotation(Vector3.forward, dir);
-            _rockDirection.localRotation = quart;
-            if (!_rockDirection.gameObject.activeSelf)
-                _rockDirection.gameObject.SetActive(true);
+            return;
         }
+
+        Vector3 dir = (Vector3)(pos.normalized);
+        _rockDirection.localPosition = dir * _rockDirecRange;
+        Quaternion quart = Quaternion.FromToRotation(Vector3.up, dir);
+        _rockDirection.localRotation = quart;
+        if (!_rockDirection.gameObject.activeSelf)
+            _rockDirection.gameObject.SetActive(true);
     }
 
     public void End(Vector2 pos)
