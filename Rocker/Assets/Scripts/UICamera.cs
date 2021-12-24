@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICamera : MonoBehaviour
+public class UICamera
 {
-    public static UICamera Instance;
-    public Camera Camera;
-    // Start is called before the first frame update
-    void Start()
+    public static readonly UICamera Instance = new UICamera();
+    private Camera _uiCamera;
+
+    public Camera Camera
     {
-        Instance = this;
-        Camera = transform.Find("Camera").GetComponent<Camera>();
+        get
+        {
+            if (null == _uiCamera)
+            {
+                _uiCamera = GameObject.Find("UIRoot").transform.Find("Camera").GetComponent<Camera>();
+            }
+            return _uiCamera;
+        }
     }
-
-
 }
