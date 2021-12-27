@@ -10,9 +10,13 @@ public class RockerRoleModelFixedToward : IRock
     // 设置正方向,也是摄像机朝向前方在水平面上的投影向量
     private Vector3 _forward = new Vector3(0, 0, 1);
     private Transform _roleTr;
+    private float _speed = 1.5f;
+
+    private CameraFollowFixedToWard _cameraFollowFixedToWard;
     public RockerRoleModelFixedToward()
     {
         _roleTr = GameObject.Find("Role").transform;
+        _cameraFollowFixedToWard = new CameraFollowFixedToWard(_roleTr, _forward);
     }
 
     public void Begin(Vector2 pos)
@@ -63,6 +67,9 @@ public class RockerRoleModelFixedToward : IRock
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
         Quaternion defaultRotation = rotation * Quaternion.identity;
         _roleTr.rotation = quaternion * defaultRotation;
+
+        MoveRole(direction);
+        _cameraFollowFixedToWard.Move();
     }
 
     public void End(Vector2 pos)
@@ -91,6 +98,11 @@ public class RockerRoleModelFixedToward : IRock
         float angle = Angle(from, to, ref cross);
         int sign = cross.y > 0 ? 1 : -1;
         return angle * sign;
+    }
+
+    private void MoveRole(Vector3 direction)
+    {
+        _roleTr.Translate(direction * _speed * Time.deltaTime, Space.World); 
     }
 
 }
