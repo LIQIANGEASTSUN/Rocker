@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class RockerBtn : MonoBehaviour
 {
     private RockerRoleController _rockerRoleController;
+    private RockerRoleModelFixedToward _rockerRoleModel;
 
     void Start()
     {
