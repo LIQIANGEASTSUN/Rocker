@@ -14,18 +14,15 @@ public class RockerRoleController : IRock
     // 拖拽百分比:拖拽距离 / _targetAreaRadius 得值
     private float _maxPercentage = 1;
 
-    // 控制人转向
-    private RockerRoleModelFixedToward _rockerRoleModelFixedToward;
-    // 控制摇杆按钮上的指示方向的箭头
-    private RockerRolerArrow _rockerRolerArrow;
     private List<IRock> _rockList = new List<IRock>();
     public RockerRoleController(Transform rockerBtnTr)
     {
         Init(rockerBtnTr);
-        _rockerRoleModelFixedToward = new RockerRoleModelFixedToward();
-        _rockList.Add(_rockerRoleModelFixedToward);
-        _rockerRolerArrow = new RockerRolerArrow(rockerBtnTr);
-        _rockList.Add(_rockerRolerArrow);
+    }
+
+    public void AddRocker(IRock rock)
+    {
+        _rockList.Add(rock);
     }
 
     private void Init(Transform rockerBtnTr)
@@ -38,7 +35,7 @@ public class RockerRoleController : IRock
         // 只要是在左侧屏幕开始拖拽，都能产生拖拽效果
         Vector2 minPickPos = new Vector2(0, 0);
         Vector2 pickSize = new Vector2(Screen.width * 0.5f, Screen.height);
-        Vector2 minActivePos = new Vector2(0, 0);
+        Vector2 minActivePos = minPickPos;
         // 设置拖拽过程中手指在activeSize范围内都可以拖动
         Vector2 activeSize = new Vector2(Screen.width, Screen.height);
         _targetAreaRadius = (targetBg.rect.width * 0.5f) - (target.rect.width * 0.5f) - 2f;

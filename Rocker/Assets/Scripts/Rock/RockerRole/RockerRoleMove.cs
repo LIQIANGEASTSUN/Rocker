@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 摇杆操作人，固定摄像机朝向：就是摄像机不会随着人转动
+/// 摇杆操作人摄像机一直在人的后上方：摄像机旋转角度随人变化
 /// </summary>
-public class RockerRoleModelFixedToward : IRock
+public class RockerRoleMove : IRock
 {
-    // 设置正方向,也是摄像机朝向前方在水平面上的投影向量
-    private Vector3 _forward = new Vector3(0, 0, 1);
     private Transform _roleTr;
     private float _speed = 1.5f;
 
     private ICameraFollow _icameraFollow;
-    public RockerRoleModelFixedToward(ICameraFollow cameraFollow)
+    public RockerRoleMove(ICameraFollow cameraFollow)
     {
         _roleTr = GameObject.Find("Role").transform;
         _icameraFollow = cameraFollow;
-        _icameraFollow.SetInfo(_roleTr, _forward);
+        _icameraFollow.SetInfo(_roleTr, Vector3.zero);
     }
 
     public void Begin(Vector2 pos)
@@ -53,22 +51,7 @@ public class RockerRoleModelFixedToward : IRock
 
         // 人最终朝向 direction = _forward 绕 Y轴旋转 rockerAngle 所得
         Quaternion quaternion = Quaternion.AngleAxis(rockerAngle, Vector3.up);
-
-        Vector3 direction = quaternion * _forward;
-        // 简单调用 API 得到结果
-        //_roleTr.rotation = Quaternion.LookRotation(direction);
-
-        // 自己计算得到结果
-        // 方法一
-        //float angle = AngleModel(Vector3.forward, direction);
-        //_roleTr.rotation = Quaternion.Euler(0, angle, 0);
-
-        // 方法二：
-        float angle = AngleModel(Vector3.forward, _forward);
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        Quaternion defaultRotation = rotation * Quaternion.identity;
-        _roleTr.rotation = quaternion * defaultRotation;
-
+        Vector3 direction = quaternion * _roleTr.forward;
         MoveRole(direction);
         _icameraFollow.Move();
     }
@@ -84,7 +67,7 @@ public class RockerRoleModelFixedToward : IRock
         cross = Vector3.Cross(from, to);
         return angle;
     }
-    
+
     private float AngleUI(Vector3 from, Vector3 to)
     {
         Vector3 cross = Vector3.zero;
@@ -93,17 +76,8 @@ public class RockerRoleModelFixedToward : IRock
         return angle * sign;
     }
 
-    private float AngleModel(Vector3 from, Vector3 to)
-    {
-        Vector3 cross = Vector3.zero;
-        float angle = Angle(from, to, ref cross);
-        int sign = cross.y > 0 ? 1 : -1;
-        return angle * sign;
-    }
-
     private void MoveRole(Vector3 direction)
     {
-        _roleTr.Translate(direction * _speed * Time.deltaTime, Space.World); 
+        _roleTr.Translate(direction * _speed * Time.deltaTime, Space.World);
     }
-
 }
