@@ -133,11 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleViewUseTargetToward
       objectReference: {fileID: 0}
-    - target: {fileID: 4680728608117243234, guid: 2a66606b58a5f344bb259c2d2471c5c6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9195821184723244893, guid: 2a66606b58a5f344bb259c2d2471c5c6,
         type: 3}
       propertyPath: m_Pivot.x

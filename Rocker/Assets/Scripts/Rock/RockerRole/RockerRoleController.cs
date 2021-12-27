@@ -28,7 +28,7 @@ public class RockerRoleController : IRock
     private void Init(Transform rockerBtnTr)
     {
         // 随着手一动的小球
-        RectTransform target = TransformHelper.GetChild(rockerBtnTr, "Rocker").GetComponent<RectTransform>();
+        RectTransform target = rockerBtnTr.Find("RockerBackground/Rocker").GetComponent<RectTransform>();
         RectTransform targetBg = rockerBtnTr.Find("RockerBackground").GetComponent<RectTransform>();
 
         // 设置开始拖拽区域为：从屏幕左下角到屏幕正中间之间的位置

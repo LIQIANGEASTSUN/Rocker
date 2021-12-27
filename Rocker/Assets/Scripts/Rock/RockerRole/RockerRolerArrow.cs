@@ -10,7 +10,7 @@ public class RockerRolerArrow : IRock
 
     public RockerRolerArrow(Transform rockerBtnTr)
     {
-        _rockDirection = TransformHelper.GetChild(rockerBtnTr, "RockerDirection").GetComponent<RectTransform>();
+        _rockDirection = rockerBtnTr.Find("RockerBackground/RockerDirection").GetComponent<RectTransform>();
         RectTransform targetBg = rockerBtnTr.Find("RockerBackground").GetComponent<RectTransform>();
         _rockDirecRange = (targetBg.rect.width * 0.5f) + 10f;
 
