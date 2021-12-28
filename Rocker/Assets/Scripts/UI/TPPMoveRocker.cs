@@ -10,7 +10,7 @@ public class TPPMoveRocker : MonoBehaviour
     {
         _rockerController = new RockerController(transform);
 
-        RockerMoveRockerForward rockerMoveRockerForward = new RockerMoveRockerForward();
+        RockerMoveRockerForwardController rockerMoveRockerForward = new RockerMoveRockerForwardController();
         _rockerController.AddRocker(rockerMoveRockerForward);
 
         CameraFollowPositionAndRotate cameraFollowPositionAndRotate = new CameraFollowPositionAndRotate();

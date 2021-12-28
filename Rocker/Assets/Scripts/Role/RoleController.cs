@@ -6,7 +6,7 @@ public class RoleController : SingletonObject<RoleController>
 {
     private ICameraFollow _cameraFollow;
     private Transform _roleTr;
-    private float _speed = 1.5f;
+    private float _moveSpeed = 1.5f;
     private float _rotateSpeed = 0.2f;
 
     // 设置正方向,也是摄像机朝向前方在水平面上的投影向量
@@ -19,7 +19,10 @@ public class RoleController : SingletonObject<RoleController>
 
     public void LateUpdate()
     {
-        _cameraFollow.Move();
+        if (null != _cameraFollow)
+        {
+            _cameraFollow.Move();
+        }
     }
 
     public void AddCameraFollow(ICameraFollow cameraFollow)
@@ -30,7 +33,7 @@ public class RoleController : SingletonObject<RoleController>
 
     public void Move(Vector3 dir)
     {
-        _roleTr.Translate(dir * _speed * Time.deltaTime, Space.World);
+        _roleTr.Translate(dir * _moveSpeed * Time.deltaTime, Space.World);
     }
 
     public void Rotate(Quaternion quaternion)
