@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ICameraFollow
 {
-    void SetInfo(Transform target, Vector3 defaultForward);
+    void SetInfo(Vector3 defaultForward);
 
     void Move();
 }

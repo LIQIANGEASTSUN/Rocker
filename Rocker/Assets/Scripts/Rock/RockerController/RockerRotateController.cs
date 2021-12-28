@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 摇杆操作人摄像机一直在人的后上方：摄像机旋转角度随人变化
-/// </summary>
-public class RockerRoleMove : IRock
+// 摇杆操作转向
+public class RockerRotateController : IRock
 {
-    private Transform _roleTr;
-    private float _speed = 1.5f;
-
-    private ICameraFollow _icameraFollow;
-    public RockerRoleMove(ICameraFollow cameraFollow)
+    public RockerRotateController()
     {
-        _roleTr = GameObject.Find("Role").transform;
-        _icameraFollow = cameraFollow;
-        _icameraFollow.SetInfo(_roleTr, Vector3.zero);
+
     }
 
     public void Begin(Vector2 pos)
@@ -51,9 +43,21 @@ public class RockerRoleMove : IRock
 
         // 人最终朝向 direction = _forward 绕 Y轴旋转 rockerAngle 所得
         Quaternion quaternion = Quaternion.AngleAxis(rockerAngle, Vector3.up);
-        Vector3 direction = quaternion * _roleTr.forward;
-        MoveRole(direction);
-        _icameraFollow.Move();
+
+        Vector3 direction = quaternion * RoleController.GetInstance().WorldForward;
+        // 简单调用 API 得到结果
+        //_roleTr.rotation = Quaternion.LookRotation(direction);
+
+        // 自己计算得到结果
+        // 方法一
+        //float angle = AngleModel(Vector3.forward, direction);
+        //_roleTr.rotation = Quaternion.Euler(0, angle, 0);
+
+        // 方法二：
+        float angle = AngleModel(Vector3.forward, RoleController.GetInstance().WorldForward);
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        Quaternion defaultRotation = rotation * Quaternion.identity;
+        RoleController.GetInstance().Rotate(quaternion * defaultRotation);
     }
 
     public void End(Vector2 pos)
@@ -76,8 +80,11 @@ public class RockerRoleMove : IRock
         return angle * sign;
     }
 
-    private void MoveRole(Vector3 direction)
+    private float AngleModel(Vector3 from, Vector3 to)
     {
-        _roleTr.Translate(direction * _speed * Time.deltaTime, Space.World);
+        Vector3 cross = Vector3.zero;
+        float angle = Angle(from, to, ref cross);
+        int sign = cross.y > 0 ? 1 : -1;
+        return angle * sign;
     }
 }

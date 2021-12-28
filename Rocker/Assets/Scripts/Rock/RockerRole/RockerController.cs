@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 // 游戏中操作人的摇杆
-public class RockerRoleController : IRock
+public class RockerController : IRock
 {
     private RockBase _rockBase;
     private KeyBoardInput _keyBoardInput;
@@ -15,7 +15,7 @@ public class RockerRoleController : IRock
     private float _maxPercentage = 1;
 
     private List<IRock> _rockList = new List<IRock>();
-    public RockerRoleController(Transform rockerBtnTr)
+    public RockerController(Transform rockerBtnTr)
     {
         Init(rockerBtnTr);
     }
