@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RockerModelRotatePlane : MonoBehaviour
 {
-    private RockerUIModelRotateController _rockerUIModelRotateController;
+    private UIModelRockerRotate _uIModelRockerRotate;
 
     void Start()
     {
-        _rockerUIModelRotateController = new RockerUIModelRotateController(transform);
+        _uIModelRockerRotate = new UIModelRockerRotate(transform);
         //// 控制人转向
         RockerUIModelRotate rockerUIModelRotate = new RockerUIModelRotate();
-        _rockerUIModelRotateController.AddRocker(rockerUIModelRotate);
+        _uIModelRockerRotate.AddRocker(rockerUIModelRotate);
     }
 
     public void Update()
     {
-        _rockerUIModelRotateController.Update();
+        _uIModelRockerRotate.Update();
     }
 }

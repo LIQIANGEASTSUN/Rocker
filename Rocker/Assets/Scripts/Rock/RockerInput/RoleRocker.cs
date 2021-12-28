@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-// 游戏中操作人的摇杆
-public class RockerController : IRock
+/// <summary>
+/// 游戏中操作人的摇杆
+/// </summary>
+public class RoleRocker : IRock
 {
     private RockBase _rockBase;
     private KeyBoardInput _keyBoardInput;
@@ -15,7 +16,7 @@ public class RockerController : IRock
     private float _maxPercentage = 1;
 
     private List<IRock> _rockList = new List<IRock>();
-    public RockerController(Transform rockerBtnTr)
+    public RoleRocker(Transform rockerBtnTr)
     {
         Init(rockerBtnTr);
     }

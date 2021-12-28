@@ -5,9 +5,6 @@
 /// </summary>
 public class UIUtils : SingletonObject<UIUtils>
 {
-    [SerializeField]
-    protected Vector2 _designScreen = GameConstants.GAME_RESOLUTION;
-
     /// <summary>
     /// 获取相对UI当前缩放的尺寸
     /// </summary>
@@ -15,6 +12,7 @@ public class UIUtils : SingletonObject<UIUtils>
     /// <returns>缩放后的尺寸</returns>
     public float GetUIRelativeLength(float length)
     {
+        Vector2 _designScreen = GameConstants.GAME_RESOLUTION;
         if (Screen.height * 1.0f / Screen.width <= _designScreen.y * 1.0f / _designScreen.x)
             return Screen.height / _designScreen.y * length;
         else

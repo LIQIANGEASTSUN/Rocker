@@ -9,8 +9,8 @@ public class RockBase : IRock
     [SerializeField]
     protected RectTransform _target;
     protected float _targetAreaRadius = 0;
-    [SerializeField]
-    protected Vector2 _designScreen = GameConstants.GAME_RESOLUTION;
+    //[SerializeField]
+    //protected Vector2 _designScreen = GameConstants.GAME_RESOLUTION;
     [SerializeField]
     protected Rect _pickUpArea;
     [SerializeField]

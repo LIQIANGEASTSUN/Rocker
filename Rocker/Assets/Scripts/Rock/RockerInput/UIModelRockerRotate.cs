@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 摇杆操作UI上模型转动
 /// </summary>
-public class RockerUIModelRotateController : IRock
+public class UIModelRockerRotate : IRock
 {
     private RockBase _rockBase;
 
@@ -13,7 +13,7 @@ public class RockerUIModelRotateController : IRock
     private float _targetAreaRadius = 0;
 
     private List<IRock> _rockList = new List<IRock>();
-    public RockerUIModelRotateController(Transform rotatePlane)
+    public UIModelRockerRotate(Transform rotatePlane)
     {
         Init(rotatePlane);
     }

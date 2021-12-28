@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class TPPMoveRocker : MonoBehaviour
 {
-    private RockerController _rockerController;
+    private RoleRocker _roleRocker;
 
     void Start()
     {
-        _rockerController = new RockerController(transform);
+        _roleRocker = new RoleRocker(transform);
 
         RockerMoveRockerForwardController rockerMoveRockerForward = new RockerMoveRockerForwardController();
-        _rockerController.AddRocker(rockerMoveRockerForward);
+        _roleRocker.AddRocker(rockerMoveRockerForward);
 
         CameraFollowPositionAndRotate cameraFollowPositionAndRotate = new CameraFollowPositionAndRotate();
         RoleController.GetInstance().AddCameraFollow(cameraFollowPositionAndRotate);
 
         // 控制摇杆按钮上的指示方向的箭头
-        RockerRolerArrow _rockerRolerArrow = new RockerRolerArrow(transform);
-        _rockerController.AddRocker(_rockerRolerArrow);
-
+        RolerRockerArrow rolerRockerArrow = new RolerRockerArrow(transform);
+        _roleRocker.AddRocker(rolerRockerArrow);
     }
 
     public void Update()
     {
-        _rockerController.Update();
+        _roleRocker.Update();
     }
 }

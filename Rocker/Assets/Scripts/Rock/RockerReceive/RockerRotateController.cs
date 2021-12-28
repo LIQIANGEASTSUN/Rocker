@@ -28,7 +28,7 @@ public class RockerRotateController : IRock
         // 顺时针拖拽摇杆时在UI 上是 Z 轴的负方向，
         // 逆时针拖拽摇杆时在UI 上是 Z 轴的正方向
         // 顺时针为负，逆时针为正
-        float rockerAngle = AngleUI(Vector3.up, dir);
+        float rockerAngle = AngleTools.AngleUI(Vector3.up, dir);
 
         // 计算人应该旋转的方向
         // 因为我们看向角色时是从上往下看，就是从Y轴的正方向朝Y轴负方向看
@@ -56,7 +56,7 @@ public class RockerRotateController : IRock
         //_roleTr.rotation = Quaternion.Euler(0, angle, 0);
 
         // 方法二：
-        float angle = AngleModel(Vector3.forward, RoleController.GetInstance().WorldForward);
+        float angle = AngleTools.AngleModel(Vector3.forward, RoleController.GetInstance().WorldForward);
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
         Quaternion defaultRotation = rotation * Quaternion.identity;
         RoleController.GetInstance().Rotate(quaternion * defaultRotation);
@@ -67,26 +67,4 @@ public class RockerRotateController : IRock
 
     }
 
-    private float Angle(Vector3 from, Vector3 to, ref Vector3 cross)
-    {
-        float angle = Vector3.Angle(from, to);
-        cross = Vector3.Cross(from, to);
-        return angle;
-    }
-
-    private float AngleUI(Vector3 from, Vector3 to)
-    {
-        Vector3 cross = Vector3.zero;
-        float angle = Angle(from, to, ref cross);
-        int sign = cross.z > 0 ? 1 : -1;
-        return angle * sign;
-    }
-
-    private float AngleModel(Vector3 from, Vector3 to)
-    {
-        Vector3 cross = Vector3.zero;
-        float angle = Angle(from, to, ref cross);
-        int sign = cross.y > 0 ? 1 : -1;
-        return angle * sign;
-    }
 }

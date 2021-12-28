@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockerRolerArrow : IRock
+/// <summary>
+/// 摇杆上指示拖拽方向的小箭头
+/// </summary>
+public class RolerRockerArrow : IRock
 {
     private RectTransform _rockDirection;
     // 拖拽时指示方向的箭头移动距离范围
     private float _rockDirecRange;
 
-    public RockerRolerArrow(Transform rockerBtnTr)
+    public RolerRockerArrow(Transform rockerBtnTr)
     {
         _rockDirection = rockerBtnTr.Find("RockerBackground/RockerDirection").GetComponent<RectTransform>();
         RectTransform targetBg = rockerBtnTr.Find("RockerBackground").GetComponent<RectTransform>();
@@ -28,7 +31,9 @@ public class RockerRolerArrow : IRock
         Quaternion quart = Quaternion.FromToRotation(Vector3.up, dir);
         _rockDirection.localRotation = quart;
         if (!_rockDirection.gameObject.activeSelf)
+        {
             _rockDirection.gameObject.SetActive(true);
+        }
     }
 
     public void End(Vector2 pos)
