@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// 摇杆操作人移动，向摇杆操作方向移动
 /// </summary>
-public class RockerMoveRockerForwardController : IRock
+public class RockerMoveRockerForwardReceive : IRock
 {
-    public RockerMoveRockerForwardController()
+    public RockerMoveRockerForwardReceive()
     {
     }
 

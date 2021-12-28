@@ -14,8 +14,8 @@ public class TTPRotateRocker : MonoBehaviour
         _roleRockerDirectionInput = new RoleRockerDirectionInput(transform);
 
         // 控制人转向 
-        RockerDragRotateController rockerDragRotateController = new RockerDragRotateController();
-        _roleRockerDirectionInput.AddRocker(rockerDragRotateController);
+        RockerDragRotateReceive rockerDragRotateReceive = new RockerDragRotateReceive();
+        _roleRockerDirectionInput.AddRocker(rockerDragRotateReceive);
     }
 
     // Update is called once per frame

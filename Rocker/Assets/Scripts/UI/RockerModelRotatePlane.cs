@@ -10,8 +10,8 @@ public class RockerModelRotatePlane : MonoBehaviour
     {
         _uIModelRockerRotateInput = new UIModelRockerRotateInput(transform);
         //// 控制人转向
-        RockerUIModelRotate rockerUIModelRotate = new RockerUIModelRotate();
-        _uIModelRockerRotateInput.AddRocker(rockerUIModelRotate);
+        RockerUIModelRotateReceive rockerUIModelRotateReceive = new RockerUIModelRotateReceive();
+        _uIModelRockerRotateInput.AddRocker(rockerUIModelRotateReceive);
     }
 
     public void Update()

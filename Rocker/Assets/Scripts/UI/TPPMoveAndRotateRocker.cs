@@ -17,11 +17,11 @@ public class TPPMoveAndRotateRocker : MonoBehaviour
         _roleRockerInput = new RoleRockerInput(transform);
 
         // 控制人转向 
-        RockerRotateController rockerRotateController = new RockerRotateController();
-        _roleRockerInput.AddRocker(rockerRotateController);
+        RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
+        _roleRockerInput.AddRocker(rockerRotateReceive);
         // 控制人移动
-        RockerMoveForwardController rockerMoveForwardController = new RockerMoveForwardController();
-        _roleRockerInput.AddRocker(rockerMoveForwardController);
+        RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
+        _roleRockerInput.AddRocker(rockerMoveForwardReceive);
         // 控制摇杆按钮上的指示方向的箭头
         RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
         _roleRockerInput.AddRocker(rolerRockerArrowReceive);

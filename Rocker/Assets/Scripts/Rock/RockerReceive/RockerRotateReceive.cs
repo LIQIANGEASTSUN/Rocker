@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// 摇杆操作人转向
 /// </summary>
-public class RockerRotateController : IRock
+public class RockerRotateReceive : IRock
 {
-    public RockerRotateController()
+    public RockerRotateReceive()
     {
 
     }

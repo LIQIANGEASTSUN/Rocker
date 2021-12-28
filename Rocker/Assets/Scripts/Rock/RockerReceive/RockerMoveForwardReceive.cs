@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 摇杆操作人移动,只向人的前方移动
 /// </summary>
-public class RockerMoveForwardController : IRock
+public class RockerMoveForwardReceive : IRock
 {
     public void Begin(Vector2 pos)
     {

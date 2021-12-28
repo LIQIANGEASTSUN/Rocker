@@ -7,10 +7,10 @@ using UnityEngine;
 /// 向原始位置左侧拖拽人向逆时针旋转
 /// 向原始位置右侧拖拽人向顺时针旋转
 /// </summary>
-public class RockerDragRotateController : IRock
+public class RockerDragRotateReceive : IRock
 {
     private Vector2 _lastPos = Vector3.zero;
-    public RockerDragRotateController()
+    public RockerDragRotateReceive()
     {
     }
 

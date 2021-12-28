@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockerUIModelRotate : IRock
+public class RockerUIModelRotateReceive : IRock
 {
     private Vector2 _lastPos = Vector3.zero;
-    public RockerUIModelRotate()
+    public RockerUIModelRotateReceive()
     {
     }
 
