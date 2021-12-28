@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 摇杆操作人转向
-public class RoleRockerDirection : IRock
+public class RoleRockerDirectionInput : IRock
 {
     private RockBase _rockBase;
 
@@ -14,7 +14,7 @@ public class RoleRockerDirection : IRock
     private float _maxPercentage = 1;
 
     private List<IRock> _rockList = new List<IRock>();
-    public RoleRockerDirection(Transform rockerBtnTr)
+    public RoleRockerDirectionInput(Transform rockerBtnTr)
     {
         Init(rockerBtnTr);
     }

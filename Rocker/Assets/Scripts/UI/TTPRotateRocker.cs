@@ -7,20 +7,20 @@ using UnityEngine;
 /// </summary>
 public class TTPRotateRocker : MonoBehaviour
 {
-    private RoleRockerDirection _roleRockerDirection;
+    private RoleRockerDirectionInput _roleRockerDirectionInput;
     // Start is called before the first frame update
     void Start()
     {
-        _roleRockerDirection = new RoleRockerDirection(transform);
+        _roleRockerDirectionInput = new RoleRockerDirectionInput(transform);
 
         // 控制人转向 
         RockerDragRotateController rockerDragRotateController = new RockerDragRotateController();
-        _roleRockerDirection.AddRocker(rockerDragRotateController);
+        _roleRockerDirectionInput.AddRocker(rockerDragRotateController);
     }
 
     // Update is called once per frame
     void Update()
     {
-        _roleRockerDirection.Update();
+        _roleRockerDirectionInput.Update();
     }
 }

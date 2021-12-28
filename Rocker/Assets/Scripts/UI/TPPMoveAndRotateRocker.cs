@@ -10,21 +10,21 @@ using UnityEngine.UI;
 /// </summary>
 public class TPPMoveAndRotateRocker : MonoBehaviour
 {
-    private RoleRocker _roleRocker;
+    private RoleRockerInput _roleRockerInput;
 
     void Start()
     {
-        _roleRocker = new RoleRocker(transform);
+        _roleRockerInput = new RoleRockerInput(transform);
 
         // 控制人转向 
         RockerRotateController rockerRotateController = new RockerRotateController();
-        _roleRocker.AddRocker(rockerRotateController);
+        _roleRockerInput.AddRocker(rockerRotateController);
         // 控制人移动
         RockerMoveForwardController rockerMoveForwardController = new RockerMoveForwardController();
-        _roleRocker.AddRocker(rockerMoveForwardController);
+        _roleRockerInput.AddRocker(rockerMoveForwardController);
         // 控制摇杆按钮上的指示方向的箭头
-        RolerRockerArrow rolerRockerArrow = new RolerRockerArrow(transform);
-        _roleRocker.AddRocker(rolerRockerArrow);
+        RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
+        _roleRockerInput.AddRocker(rolerRockerArrowReceive);
 
         CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
         RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
@@ -32,6 +32,6 @@ public class TPPMoveAndRotateRocker : MonoBehaviour
 
     public void Update()
     {
-        _roleRocker.Update();
+        _roleRockerInput.Update();
     }
 }
