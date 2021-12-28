@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 摇杆操作转向
+/// <summary>
+/// 摇杆操作人转向
+/// </summary>
 public class RockerRotateController : IRock
 {
     public RockerRotateController()

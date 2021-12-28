@@ -7,6 +7,7 @@ public class RoleController : SingletonObject<RoleController>
     private ICameraFollow _cameraFollow;
     private Transform _roleTr;
     private float _speed = 1.5f;
+    private float _rotateSpeed = 0.2f;
 
     // 设置正方向,也是摄像机朝向前方在水平面上的投影向量
     private Vector3 _worldForward = new Vector3(0, 0, 1);
@@ -51,6 +52,15 @@ public class RoleController : SingletonObject<RoleController>
     {
         get { return _roleTr.position; }
     }
-   
+
+    public Quaternion RoleRotate
+    {
+        get { return _roleTr.rotation; }
+    }
+    
+    public float RotateSpeed
+    {
+        get { return _rotateSpeed; }
+    }
 
 }

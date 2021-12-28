@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 摇杆控制人转向
+/// </summary>
 public class TTPRotateRocker : MonoBehaviour
 {
     private RockerRoleDirectionController _rockerRoleDirectionController;
@@ -11,8 +14,8 @@ public class TTPRotateRocker : MonoBehaviour
         _rockerRoleDirectionController = new RockerRoleDirectionController(transform);
 
         // 控制人转向 
-        RockerRotateController rockerRotateController = new RockerRotateController();
-        _rockerRoleDirectionController.AddRocker(rockerRotateController);
+        RockerDragRotateController rockerDragRotateController = new RockerDragRotateController();
+        _rockerRoleDirectionController.AddRocker(rockerDragRotateController);
     }
 
     // Update is called once per frame
