@@ -29,8 +29,8 @@ public class UIModelRockerRotateInput : IRock
         RectTransform min = rotatePlane.Find("BG/Min").GetComponent<RectTransform>();
         RectTransform max = rotatePlane.Find("BG/Max").GetComponent<RectTransform>();
 
-        Vector2 minPos = Utility.PositionConvert.UIPositionToScreenPosition(min.position);
-        Vector2 maxPos = Utility.PositionConvert.UIPositionToScreenPosition(max.position);
+        Vector2 minPos = PositionConvert.UIPointToScreenPoint(min.position);
+        Vector2 maxPos = PositionConvert.UIPointToScreenPoint(max.position);
 
         // 设置开始拖拽区域为：从屏幕中间左下角到屏幕右边之间的位置
         // 只要是在左侧屏幕开始拖拽，都能产生拖拽效果

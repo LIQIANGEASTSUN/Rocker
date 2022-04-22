@@ -2,9 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void FingerTouchDown(int fingerId, Vector2 position);
+public delegate void FingerTouchUp(int fingerId, Vector2 position);
+public delegate void FingerTouchBeginDrag(int fingerId, Vector2 position);
+public delegate void FingerTouchDrag(int fingerId, Vector2 position, Vector2 deltaPosition);
+public delegate void FingerTouchDragEnd(int fingerId, Vector2 pisition);
+
 public class FingerGestureSystem : SingletonObject<FingerGestureSystem>
 {
     private List<FingerGesture> fingerGesturesList = new List<FingerGesture>();
+
+    public FingerTouchDown fingerTouchDown;
+    public FingerTouchUp fingerTouchUp;
+    public FingerTouchBeginDrag fingerTouchBeginDrag;
+    public FingerTouchDrag fingerTouchDrag;
+    public FingerTouchDragEnd fingerTouchDragEnd;
 
     public FingerGestureSystem()
     {
@@ -80,7 +92,7 @@ public class FingerGestureSystem : SingletonObject<FingerGestureSystem>
         }
     }
 
-    private void MobileReceiveInout()
+    private void MobileReceiveInput()
     {
         for (int i = 0; i < Input.touchCount; ++i)
         {
@@ -88,6 +100,12 @@ public class FingerGestureSystem : SingletonObject<FingerGestureSystem>
             FingerGesture fingerGesture = GetFingerGestureIfNullCreate(touch.fingerId);
             fingerGesture.AddTouch(touch);
         }
+    }
+
+    public void AddCustomTouch(Touch touch)
+    {
+        FingerGesture fingerGesture = GetFingerGestureIfNullCreate(touch.fingerId);
+        fingerGesture.AddTouch(touch);
     }
 
     private void Execute()
@@ -186,8 +204,8 @@ public class FingerGesture
     private void Down(Touch touch)
     {
         _beginDrag = false;
-        //Debug.LogError("Down");
-
+        Debug.LogError("Down");
+        FingerGestureSystem.GetInstance().fingerTouchDown(_fingerId, touch.position);
     }
 
     private void Move(Touch touch)
@@ -195,21 +213,25 @@ public class FingerGesture
         if (!_beginDrag)
         {
             _beginDrag = true;
-            //Debug.LogError("BeginDrag");
+            Debug.LogError("BeginDrag");
+            FingerGestureSystem.GetInstance().fingerTouchBeginDrag(_fingerId, touch.position);
         }
         else
         {
-            //Debug.LogError("Drag:" + touch.position + "    " + touch.deltaPosition);
+            Debug.LogError("Drag:" + touch.position + "    " + touch.deltaPosition);
+            FingerGestureSystem.GetInstance().fingerTouchDrag(_fingerId, touch.position, touch.deltaPosition);
         }
     }
 
     private void Up(Touch touch)
     {
-        //Debug.LogError("Up");
+        Debug.LogError("Up");
+        FingerGestureSystem.GetInstance().fingerTouchUp(_fingerId, touch.position);
         if (_beginDrag)
         {
             _beginDrag = false;
-            //Debug.LogError("EndDrag");
+            Debug.LogError("EndDrag");
+            FingerGestureSystem.GetInstance().fingerTouchDragEnd(_fingerId, touch.position);
         }
     }
 

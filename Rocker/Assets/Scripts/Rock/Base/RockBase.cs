@@ -128,7 +128,7 @@ public class RockBase : IRock
         if (HasTarget)
         {
             _target.anchoredPosition = Vector3.zero;
-            _originScreenPosition = Utility.PositionConvert.UIPositionToScreenPosition(_target.position);
+            _originScreenPosition = PositionConvert.UIPointToScreenPoint(_target.position);
         }
 
         if (null != _iRock)
@@ -150,7 +150,7 @@ public class RockBase : IRock
             }
             Vector2 newScreenPos = _originScreenPosition + offsetPos;
 
-            Vector3 uiPos = Utility.PositionConvert.ScreenToUIPosition(_target, newScreenPos, UICamera.Instance.Camera);
+            Vector3 uiPos = PositionConvert.ScreenPointToUIPoint(_target, newScreenPos);
             _target.position = uiPos;
         }
 

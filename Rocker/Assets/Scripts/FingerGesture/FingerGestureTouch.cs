@@ -215,7 +215,6 @@ public class FingerGestureTouch
     {
         if (null != _iRock)
         {
-            Debug.LogError("Begin:" + pos);
             _iRock.Begin(pos);
         }
     }
@@ -224,7 +223,6 @@ public class FingerGestureTouch
     {
         if (null != _iRock)
         {
-            Debug.LogError("MoveEvent:" + pos);
             _iRock.Move(pos, 1);
         }
     }
@@ -233,7 +231,6 @@ public class FingerGestureTouch
     {
         if (null != _iRock)
         {
-            Debug.LogError("End:" + pos);
             _iRock.End(pos);
         }
     }

@@ -13,6 +13,7 @@ public class GameRoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FingerGestureSystem.GetInstance().Update();
     }
 
     private void LateUpdate()
