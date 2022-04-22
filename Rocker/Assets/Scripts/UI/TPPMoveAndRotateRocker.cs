@@ -35,3 +35,23 @@ public class TPPMoveAndRotateRocker : MonoBehaviour
         _roleRockerInput.Update();
     }
 }
+
+public class TPPRoleRocker : RockerAB
+{
+
+    protected override void BeginDrag(Vector2 position)
+    {
+
+    }
+
+    protected override void Drag(Vector2 position, Vector2 deltaPosition)
+    {
+
+    }
+
+    protected override void DragEnd(Vector2 position)
+    {
+
+    }
+
+}
