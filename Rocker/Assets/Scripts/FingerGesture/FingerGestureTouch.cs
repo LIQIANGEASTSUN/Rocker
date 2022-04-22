@@ -35,7 +35,7 @@ public class FingerGestureTouch
     public bool IsWorking { get { return isPickUp; } }
     
     //RokerBtn手势处理，包含移动平台手指头的和鼠标点击并移动的，不包含键盘的
-    public void ReceiveInout()
+    public void ReceiveInput()
     {
         //获取Touch数组
         GetInput();

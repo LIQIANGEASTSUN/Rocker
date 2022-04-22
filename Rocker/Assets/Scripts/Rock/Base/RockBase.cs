@@ -107,12 +107,12 @@ public class RockBase : IRock
         {
             if (fingerGestureTouch.IsWorking)
             {
-                fingerGestureTouch.ReceiveInout();
+                fingerGestureTouch.ReceiveInput();
             }
         }
         else
         {
-            fingerGestureTouch.ReceiveInout();
+            fingerGestureTouch.ReceiveInput();
         }
     }
 
