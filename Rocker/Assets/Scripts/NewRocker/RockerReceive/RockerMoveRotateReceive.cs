@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 摇杆操作人转向
+/// 摇杆操作移动和转向
 /// </summary>
-public class RockerRotateReceive : IRocker
+public class RockerMoveRotateReceive : IRocker
 {
-    public RockerRotateReceive()
+    public RockerMoveRotateReceive()
     {
 
     }
@@ -61,6 +61,8 @@ public class RockerRotateReceive : IRocker
         Quaternion defaultRotation = rotation * Quaternion.identity;
         RoleController.GetInstance().Rotate(quaternion * defaultRotation);
 
+        dir = RoleController.GetInstance().RoleForward;
+        RoleController.GetInstance().Move(dir);
     }
 
     public void End(Vector2 pos)

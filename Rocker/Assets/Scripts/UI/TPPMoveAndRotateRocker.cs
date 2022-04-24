@@ -11,34 +11,12 @@ using UnityEngine.UI;
 public class TPPMoveAndRotateRocker : MonoBehaviour
 {
     private TPPRoleRocker _tPPRoleRocker;
-    //private RoleRockerInput _roleRockerInput;
 
     void Start()
     {
-        //_roleRockerInput = new RoleRockerInput(transform);
-
-        //// 控制人转向 
-        //RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
-        //_roleRockerInput.AddRocker(rockerRotateReceive);
-        //// 控制人移动
-        //RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
-        //_roleRockerInput.AddRocker(rockerMoveForwardReceive);
-        //// 控制摇杆按钮上的指示方向的箭头
-        //RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
-        //_roleRockerInput.AddRocker(rolerRockerArrowReceive);
-
-        //CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
-        //RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
-
         _tPPRoleRocker = new TPPRoleRocker(transform);
-
         CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
         RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
-    }
-
-    public void Update()
-    {
-        //_roleRockerInput.Update();
     }
 
     private void OnDestroy()
@@ -61,11 +39,8 @@ public class TPPRoleRocker : RockerAB
         Init(pickArea);
 
         // 控制人转向
-        RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
+        RockerMoveRotateReceive rockerRotateReceive = new RockerMoveRotateReceive();
         _rockerList.Add(rockerRotateReceive);
-        // 控制人移动
-        RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
-        _rockerList.Add(rockerMoveForwardReceive);
         // 控制摇杆按钮上的指示方向的箭头
         RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
         _rockerList.Add(rolerRockerArrowReceive);

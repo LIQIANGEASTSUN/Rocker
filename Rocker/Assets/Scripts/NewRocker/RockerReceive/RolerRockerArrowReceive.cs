@@ -39,12 +39,11 @@ public class RolerRockerArrowReceive : IRocker
 
     public void Begin(Vector2 pos)
     {
-
+        DragRocker(pos, pos, Vector2.zero);
     }
 
     public void Drag(Vector2 startPint, Vector2 point, Vector2 deltaPoint)
     {
-        Debug.LogError("Drag");
         DragRocker(startPint, point, deltaPoint);
         DragDirection(startPint, point, deltaPoint);
     }
@@ -81,6 +80,7 @@ public class RolerRockerArrowReceive : IRocker
 
     public void End(Vector2 pos)
     {
+        DragRocker(pos, pos, Vector2.zero);
         _rockDirection.gameObject.SetActive(false);
     }
 
