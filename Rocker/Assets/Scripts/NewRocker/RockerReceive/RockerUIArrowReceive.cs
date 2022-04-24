@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 摇杆上指示拖拽方向的小箭头
 /// </summary>
-public class RolerRockerArrowReceive : IRocker
+public class RockerUIArrowReceive : IRocker
 {
     // 摇杆中心的小球
     private RectTransform _rockerBallRT;
@@ -19,7 +19,7 @@ public class RolerRockerArrowReceive : IRocker
     // 拖拽时指示方向的箭头移动距离范围
     private float _rockDirecRange;
 
-    public RolerRockerArrowReceive(Transform rockerBtnTr)
+    public RockerUIArrowReceive(Transform rockerBtnTr)
     {
         _rockerBallRT = rockerBtnTr.Find("RockerBackground/Rocker").GetComponent<RectTransform>();
         _rockDirection = rockerBtnTr.Find("RockerBackground/RockerDirection").GetComponent<RectTransform>();

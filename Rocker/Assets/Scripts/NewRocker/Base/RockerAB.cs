@@ -49,6 +49,7 @@ public abstract class RockerAB : IRocker
             return;
         }
         End(position);
+        _workingFingerId = -1;
     }
 
     public abstract void Begin(Vector2 pos);

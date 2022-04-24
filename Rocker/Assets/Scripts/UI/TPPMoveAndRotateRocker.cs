@@ -10,26 +10,26 @@ using UnityEngine.UI;
 /// </summary>
 public class TPPMoveAndRotateRocker : MonoBehaviour
 {
-    private TPPRoleRocker _tPPRoleRocker;
+    private MoveAndRotateRocker _moveAndRotateRocker;
 
     void Start()
     {
-        _tPPRoleRocker = new TPPRoleRocker(transform);
+        _moveAndRotateRocker = new MoveAndRotateRocker(transform);
         CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
         RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
     }
 
     private void OnDestroy()
     {
-        _tPPRoleRocker.Release();
+        _moveAndRotateRocker.Release();
     }
 
 }
 
-public class TPPRoleRocker : RockerAB
+public class MoveAndRotateRocker : RockerAB
 {
     private List<IRocker> _rockerList = new List<IRocker>();
-    public TPPRoleRocker(Transform transform)
+    public MoveAndRotateRocker(Transform transform)
     {
         // 设置开始拖拽区域为：从屏幕左下角到屏幕正中间之间的位置
         // 只要是在左侧屏幕开始拖拽，都能产生拖拽效果
@@ -39,11 +39,11 @@ public class TPPRoleRocker : RockerAB
         Init(pickArea);
 
         // 控制人转向
-        RockerMoveRotateReceive rockerRotateReceive = new RockerMoveRotateReceive();
+        RoleMoveRotateReceive rockerRotateReceive = new RoleMoveRotateReceive();
         _rockerList.Add(rockerRotateReceive);
         // 控制摇杆按钮上的指示方向的箭头
-        RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
-        _rockerList.Add(rolerRockerArrowReceive);
+        RockerUIArrowReceive rockerUIArrowReceive = new RockerUIArrowReceive(transform);
+        _rockerList.Add(rockerUIArrowReceive);
     }
 
     public override void Begin(Vector2 pos)

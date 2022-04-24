@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 摇杆操作人移动，向摇杆操作方向移动
+/// 摇杆操作移动和转向
 /// </summary>
-public class RockerMoveRockerForwardReceive : IRock
+public class RoleMoveRotateReceive : IRocker
 {
-    public RockerMoveRockerForwardReceive()
+    public RoleMoveRotateReceive()
     {
+
     }
 
     public void Begin(Vector2 pos)
@@ -16,9 +17,9 @@ public class RockerMoveRockerForwardReceive : IRock
 
     }
 
-    public void Move(Vector2 pos, float percentage)
+    public void Drag(Vector2 startPint, Vector2 point, Vector2 deltaPoint)
     {
-        Vector3 dir = (Vector3)(pos.normalized);
+        Vector3 dir = (point - startPint).normalized;
         // Unity 内物体饶某个轴旋转遵循左手定理：握拳伸直大拇指(令大拇指指向旋转轴正方向)
         // 其他四指，指向的就是旋转的正方向
 
@@ -44,15 +45,30 @@ public class RockerMoveRockerForwardReceive : IRock
 
         // 人最终朝向 direction = _forward 绕 Y轴旋转 rockerAngle 所得
         Quaternion quaternion = Quaternion.AngleAxis(rockerAngle, Vector3.up);
-        Vector3 direction = quaternion * RoleController.GetInstance().RoleForward;
-        RoleController.GetInstance().Move(direction);
+
+        Vector3 direction = quaternion * RoleController.GetInstance().WorldForward;
+        // 简单调用 API 得到结果
+        //_roleTr.rotation = Quaternion.LookRotation(direction);
+
+        // 自己计算得到结果
+        // 方法一
+        //float angle = AngleModel(Vector3.forward, direction);
+        //_roleTr.rotation = Quaternion.Euler(0, angle, 0);
+
+        // 方法二：
+        float angle = AngleTools.AngleModel(Vector3.forward, RoleController.GetInstance().WorldForward);
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        Quaternion defaultRotation = rotation * Quaternion.identity;
+        RoleController.GetInstance().Rotate(quaternion * defaultRotation);
+
+        dir = RoleController.GetInstance().RoleForward;
+        RoleController.GetInstance().Move(dir);
     }
 
     public void End(Vector2 pos)
     {
 
     }
-
 
 
 }

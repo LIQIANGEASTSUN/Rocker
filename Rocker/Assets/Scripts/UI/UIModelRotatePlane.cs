@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockerModelRotatePlane : MonoBehaviour
+public class UIModelRotatePlane : MonoBehaviour
 {
     private UIModelRockerRotate _uIModelRockerRotate;
 
@@ -27,7 +27,7 @@ public class UIModelRockerRotate : RockerAB
         Rect pickArea = new Rect(minPos, maxPos - minPos);
         Init(pickArea);
 
-        _uiModelRocker = new RockerUIModelRotateReceive();
+        _uiModelRocker = new UIModelRotateReceive();
     }
 
     public override void Begin(Vector2 pos)
