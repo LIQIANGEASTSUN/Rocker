@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RockerAB 
+public abstract class RockerAB : IRocker
 {
-    protected IRock _iRock;
     protected Rect _pickArea;
     protected Vector2 _startPosition;
 
     private int _workingFingerId = -1;
     public RockerAB()
     {
-
     }
 
-    public void Init(IRock iRock, Rect pickArea)
+    public void Init(Rect pickArea)
     {
-        _iRock = iRock;
         _pickArea = pickArea;
         RegisterEvent();
     }
@@ -33,7 +30,7 @@ public abstract class RockerAB
         }
         _workingFingerId = fingerId;
         _startPosition = position;
-        BeginDrag(position);
+        Begin(position);
     }
 
     private void Drag(int fingerId, Vector2 position, Vector2 deltaPosition)
@@ -42,7 +39,7 @@ public abstract class RockerAB
         {
             return;
         }
-        Drag(position, deltaPosition);
+        Drag(_startPosition, position, deltaPosition);
     }
 
     private void DragEnd(int fingerId, Vector2 position)
@@ -51,14 +48,14 @@ public abstract class RockerAB
         {
             return;
         }
-        DragEnd(position);
+        End(position);
     }
 
-    protected abstract void BeginDrag(Vector2 position);
+    public abstract void Begin(Vector2 pos);
 
-    protected abstract void Drag(Vector2 position, Vector2 deltaPosition);
+    public abstract void Drag(Vector2 startPint, Vector2 point, Vector2 deltaPoint);
 
-    protected abstract void DragEnd(Vector2 position);
+    public abstract void End(Vector2 point);
 
     private void RegisterEvent()
     {

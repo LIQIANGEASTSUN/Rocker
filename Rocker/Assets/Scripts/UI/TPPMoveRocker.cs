@@ -17,8 +17,8 @@ public class TPPMoveRocker : MonoBehaviour
         RoleController.GetInstance().AddCameraFollow(cameraFollowPositionAndRotate);
 
         // 控制摇杆按钮上的指示方向的箭头
-        RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
-        _roleRockerInput.AddRocker(rolerRockerArrowReceive);
+        //RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
+        //_roleRockerInput.AddRocker(rolerRockerArrowReceive);
     }
 
     public void Update()

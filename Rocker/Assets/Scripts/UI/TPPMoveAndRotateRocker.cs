@@ -10,21 +10,27 @@ using UnityEngine.UI;
 /// </summary>
 public class TPPMoveAndRotateRocker : MonoBehaviour
 {
-    private RoleRockerInput _roleRockerInput;
+    private TPPRoleRocker _tPPRoleRocker;
+    //private RoleRockerInput _roleRockerInput;
 
     void Start()
     {
-        _roleRockerInput = new RoleRockerInput(transform);
+        //_roleRockerInput = new RoleRockerInput(transform);
 
-        // 控制人转向 
-        RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
-        _roleRockerInput.AddRocker(rockerRotateReceive);
-        // 控制人移动
-        RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
-        _roleRockerInput.AddRocker(rockerMoveForwardReceive);
-        // 控制摇杆按钮上的指示方向的箭头
-        RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
-        _roleRockerInput.AddRocker(rolerRockerArrowReceive);
+        //// 控制人转向 
+        //RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
+        //_roleRockerInput.AddRocker(rockerRotateReceive);
+        //// 控制人移动
+        //RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
+        //_roleRockerInput.AddRocker(rockerMoveForwardReceive);
+        //// 控制摇杆按钮上的指示方向的箭头
+        //RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
+        //_roleRockerInput.AddRocker(rolerRockerArrowReceive);
+
+        //CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
+        //RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
+
+        _tPPRoleRocker = new TPPRoleRocker(transform);
 
         CamerFollowPositionLockDirection camerFollowPositionLockDirection = new CamerFollowPositionLockDirection();
         RoleController.GetInstance().AddCameraFollow(camerFollowPositionLockDirection);
@@ -32,26 +38,61 @@ public class TPPMoveAndRotateRocker : MonoBehaviour
 
     public void Update()
     {
-        _roleRockerInput.Update();
+        //_roleRockerInput.Update();
     }
+
+    private void OnDestroy()
+    {
+        _tPPRoleRocker.Release();
+    }
+
 }
 
 public class TPPRoleRocker : RockerAB
 {
-
-    protected override void BeginDrag(Vector2 position)
+    private List<IRocker> _rockerList = new List<IRocker>();
+    public TPPRoleRocker(Transform transform)
     {
+        // 设置开始拖拽区域为：从屏幕左下角到屏幕正中间之间的位置
+        // 只要是在左侧屏幕开始拖拽，都能产生拖拽效果
+        Vector2 minPickPos = new Vector2(0, 0);
+        Vector2 pickSize = new Vector2(Screen.width * 0.5f, Screen.height);
+        Rect pickArea = new Rect(minPickPos, pickSize);
+        Init(pickArea);
 
+        // 控制人转向
+        RockerRotateReceive rockerRotateReceive = new RockerRotateReceive();
+        _rockerList.Add(rockerRotateReceive);
+        // 控制人移动
+        RockerMoveForwardReceive rockerMoveForwardReceive = new RockerMoveForwardReceive();
+        _rockerList.Add(rockerMoveForwardReceive);
+        // 控制摇杆按钮上的指示方向的箭头
+        RolerRockerArrowReceive rolerRockerArrowReceive = new RolerRockerArrowReceive(transform);
+        _rockerList.Add(rolerRockerArrowReceive);
     }
 
-    protected override void Drag(Vector2 position, Vector2 deltaPosition)
+    public override void Begin(Vector2 pos)
     {
-
+        foreach(var rocker in _rockerList)
+        {
+            rocker.Begin(pos);
+        }
     }
 
-    protected override void DragEnd(Vector2 position)
+    public override void Drag(Vector2 startPint, Vector2 point, Vector2 deltaPoint)
     {
+        foreach (var rocker in _rockerList)
+        {
+            rocker.Drag(startPint, point, deltaPoint);
+        }
+    }
 
+    public override void End(Vector2 point)
+    {
+        foreach (var rocker in _rockerList)
+        {
+            rocker.End(point);
+        }
     }
 
 }

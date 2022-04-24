@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 摇杆操作人转向
 /// </summary>
-public class RockerRotateReceive : IRock
+public class RockerRotateReceive : IRocker
 {
     public RockerRotateReceive()
     {
@@ -17,9 +17,9 @@ public class RockerRotateReceive : IRock
 
     }
 
-    public void Move(Vector2 pos, float percentage)
+    public void Drag(Vector2 startPint, Vector2 point, Vector2 deltaPoint)
     {
-        Vector3 dir = (Vector3)(pos.normalized);
+        Vector3 dir = (point - startPint).normalized;
         // Unity 内物体饶某个轴旋转遵循左手定理：握拳伸直大拇指(令大拇指指向旋转轴正方向)
         // 其他四指，指向的就是旋转的正方向
 
@@ -60,11 +60,13 @@ public class RockerRotateReceive : IRock
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
         Quaternion defaultRotation = rotation * Quaternion.identity;
         RoleController.GetInstance().Rotate(quaternion * defaultRotation);
+
     }
 
     public void End(Vector2 pos)
     {
 
     }
+
 
 }

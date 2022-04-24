@@ -204,8 +204,11 @@ public class FingerGesture
     private void Down(Touch touch)
     {
         _beginDrag = false;
-        Debug.LogError("Down");
-        FingerGestureSystem.GetInstance().fingerTouchDown(_fingerId, touch.position);
+        //Debug.LogError("Down");
+        if (null != FingerGestureSystem.GetInstance().fingerTouchDown)
+        {
+            FingerGestureSystem.GetInstance().fingerTouchDown(_fingerId, touch.position);
+        }
     }
 
     private void Move(Touch touch)
@@ -213,25 +216,37 @@ public class FingerGesture
         if (!_beginDrag)
         {
             _beginDrag = true;
-            Debug.LogError("BeginDrag");
-            FingerGestureSystem.GetInstance().fingerTouchBeginDrag(_fingerId, touch.position);
+            //Debug.LogError("BeginDrag");
+            if (null != FingerGestureSystem.GetInstance().fingerTouchBeginDrag)
+            {
+                FingerGestureSystem.GetInstance().fingerTouchBeginDrag(_fingerId, touch.position);
+            }
         }
         else
         {
-            Debug.LogError("Drag:" + touch.position + "    " + touch.deltaPosition);
-            FingerGestureSystem.GetInstance().fingerTouchDrag(_fingerId, touch.position, touch.deltaPosition);
+            //Debug.LogError("Drag:" + touch.position + "    " + touch.deltaPosition);
+            if (null != FingerGestureSystem.GetInstance().fingerTouchDrag)
+            {
+                FingerGestureSystem.GetInstance().fingerTouchDrag(_fingerId, touch.position, touch.deltaPosition);
+            }
         }
     }
 
     private void Up(Touch touch)
     {
-        Debug.LogError("Up");
-        FingerGestureSystem.GetInstance().fingerTouchUp(_fingerId, touch.position);
+        //Debug.LogError("Up");
+        if (null != FingerGestureSystem.GetInstance().fingerTouchUp)
+        {
+            FingerGestureSystem.GetInstance().fingerTouchUp(_fingerId, touch.position);
+        }
         if (_beginDrag)
         {
             _beginDrag = false;
-            Debug.LogError("EndDrag");
-            FingerGestureSystem.GetInstance().fingerTouchDragEnd(_fingerId, touch.position);
+            //Debug.LogError("EndDrag");
+            if (null != FingerGestureSystem.GetInstance().fingerTouchDragEnd)
+            {
+                FingerGestureSystem.GetInstance().fingerTouchDragEnd(_fingerId, touch.position);
+            }
         }
     }
 
