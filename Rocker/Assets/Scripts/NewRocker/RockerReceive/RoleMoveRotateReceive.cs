@@ -67,8 +67,7 @@ public class RoleMoveRotateReceive : IRocker
 
     public void End(Vector2 pos)
     {
-
+        RoleController.GetInstance().MoveEnd();
     }
-
 
 }

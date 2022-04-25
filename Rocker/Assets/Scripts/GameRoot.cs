@@ -14,6 +14,7 @@ public class GameRoot : MonoBehaviour
     void Update()
     {
         FingerGestureSystem.GetInstance().Update();
+        RoleController.GetInstance().Update();
     }
 
     private void LateUpdate()

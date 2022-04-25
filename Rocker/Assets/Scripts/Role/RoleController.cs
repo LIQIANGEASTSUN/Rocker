@@ -8,6 +8,8 @@ public class RoleController : SingletonObject<RoleController>
     private Transform _roleTr;
     private float _moveSpeed = 1.5f;
     private float _rotateSpeed = 0.2f;
+    private bool _move = false;
+    private Vector3 _moveDir;
 
     // 设置正方向,也是摄像机朝向前方在水平面上的投影向量
     private Vector3 _worldForward = new Vector3(0, 0, 1);
@@ -15,6 +17,14 @@ public class RoleController : SingletonObject<RoleController>
     public RoleController()
     {
         _roleTr = GameObject.Find("Role").transform;
+    }
+
+    public void Update()
+    {
+        if (_move)
+        {
+            _roleTr.Translate(_moveDir * _moveSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     public void LateUpdate()
@@ -33,7 +43,13 @@ public class RoleController : SingletonObject<RoleController>
 
     public void Move(Vector3 dir)
     {
-        _roleTr.Translate(dir * _moveSpeed * Time.deltaTime, Space.World);
+        _move = true;
+        _moveDir = dir;
+    }
+
+    public void MoveEnd()
+    {
+        _move = false;
     }
 
     public void Rotate(Quaternion quaternion)
