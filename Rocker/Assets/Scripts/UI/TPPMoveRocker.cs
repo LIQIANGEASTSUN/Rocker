@@ -5,6 +5,7 @@ using UnityEngine;
 public class TPPMoveRocker : MonoBehaviour
 {
     private MoveRocker _moveRocker;
+    private WASDKeyInput _wASDKeyInput;
 
     void Start()
     {
@@ -12,6 +13,14 @@ public class TPPMoveRocker : MonoBehaviour
 
         CameraFollowPositionAndRotate cameraFollowPositionAndRotate = new CameraFollowPositionAndRotate();
         RoleController.GetInstance().AddCameraFollow(cameraFollowPositionAndRotate);
+
+        Vector2 screenPoint = PositionConvert.UIPointToScreenPoint(transform.position);
+        _wASDKeyInput = new WASDKeyInput(screenPoint);
+    }
+
+    private void Update()
+    {
+        _wASDKeyInput.Update();
     }
 
     private void OnDestroy()
