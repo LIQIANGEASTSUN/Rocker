@@ -60,6 +60,7 @@ public class RockerUIArrowReceive : IRocker
 
     private void DragDirection(Vector2 startPint, Vector2 point, Vector2 deltaPoint)
     {
+        Debug.LogError("Drag");
         Vector3 dir = (Vector3)(point - startPint).normalized;
         // 位置
         {

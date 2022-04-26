@@ -23,6 +23,11 @@ public class TPPMoveAndRotateRocker : MonoBehaviour
         _wASDKeyInput = new WASDKeyInput(screenPoint);
     }
 
+    private void Update()
+    {
+        _wASDKeyInput.Update();
+    }
+
     private void OnDestroy()
     {
         _moveAndRotateRocker.Release();
@@ -76,70 +81,3 @@ public class MoveAndRotateRocker : RockerAB
 
 }
 
-
-public class WASDKeyInput
-{
-    private Vector2 _center;
-    private Dictionary<KeyCode, Vector2> _keyDic = new Dictionary<KeyCode, Vector2>() {
-        { KeyCode.W, Vector2.up },
-        { KeyCode.S, Vector2.down },
-        { KeyCode.A, Vector2.left },
-        { KeyCode.D, Vector2.right },
-    };
-
-    private const int _fingerId = 10000;
-    private bool _oldDown;
-    private Vector2 _oldPosition;
-
-    public WASDKeyInput(Vector2 center)
-    {
-        _center = center;
-    }
-
-    public void Update()
-    {
-        Touch touch = new Touch();
-        Vector2 dir = Vector2.zero;
-        bool down = false;
-        foreach (var kv in _keyDic)
-        {
-            if (Input.GetKeyDown(kv.Key) || Input.GetKey(kv.Key))
-            {
-                dir += kv.Value;
-                down = true;
-            }
-        }
-
-        if (_oldDown)
-        {
-            if (down)
-            {
-                touch.phase = TouchPhase.Moved;
-            }
-            else
-            {
-                touch.phase = TouchPhase.Ended;
-            }
-        }
-        else
-        {
-            if (down)
-            {
-                touch.phase = TouchPhase.Began;
-            }
-            else
-            {
-                return;
-            }
-        }
-        _oldDown = down;
-
-        touch.fingerId = _fingerId;
-        touch.position = _center + dir;
-        touch.deltaPosition = touch.position - _oldPosition;
-        _oldPosition = touch.position;
-
-        FingerGestureSystem.GetInstance().AddCustomTouch(touch);
-    }
-
-}

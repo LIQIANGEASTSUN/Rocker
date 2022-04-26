@@ -79,7 +79,7 @@ public class FingerGestureSystem : SingletonObject<FingerGestureSystem>
                 touchPhase = TouchPhase.Ended;
             }
 
-            if (input)
+            if (input && touchPhase != TouchPhase.Stationary)
             {
                 Touch touch = new Touch();
                 touch.fingerId = fingerId;
