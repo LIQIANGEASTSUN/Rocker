@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ThirdPersonPerspective2.unity
+    guid: 120ccc3910ba848438b7b022f1ae8d4b
   m_configObjects: {}

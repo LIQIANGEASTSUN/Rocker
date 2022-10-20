@@ -37,7 +37,7 @@ public class FingerGestureSystem : SingletonObject<FingerGestureSystem>
 #endif
 
 #if (!UNITY_EDITOR) && (UNITY_IOS || UNITY_ANDROID)
-        MobileReceiveInout();
+        MobileReceiveInput();
 #endif
     }
 
